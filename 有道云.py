@@ -1,4 +1,9 @@
-# 需要添加环境变量 ydyCookie
+"""
+需要添加环境变量 ydyCookie
+
+cron: 0 8,12 * * *
+const $ = new Env("有道云签到");
+"""
 
 import requests
 import notify
