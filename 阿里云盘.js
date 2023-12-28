@@ -94,16 +94,12 @@ function sign_in(access_token, remarks) {
 				if (reward.type === "dailySignIn") {
 					const rewardInfo = await getReward(access_token, signInCount)
 					sendMessage.push(
-						`登录奖励: ${rewardInfo.notice || ''}${
-                        rewardInfo.name || ''
-                    }`)
+						`登录奖励: ${rewardInfo.notice || ''}`)
 				} else {
 					try {
 						const ri = await getRewardTask(access_token, signInCount)
 						sendMessage.push(
-							`任务奖励: ${ri.notice || ''}${
-                        ri.name || ''
-                    }`)
+							`任务奖励: ${ri.notice || ''}`)
 					} catch (e) {
 						sendMessage.push(`任务奖励: ${e}`)
 					}
