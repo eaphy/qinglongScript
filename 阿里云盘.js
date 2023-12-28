@@ -94,18 +94,18 @@ function sign_in(access_token, remarks) {
 				if (reward.type === "dailySignIn") {
 					const rewardInfo = await getReward(access_token, signInCount)
 					sendMessage.push(
-						`今天登录奖励领取成功: ${rewardInfo.notice || ''}${
+						`登录奖励: ${rewardInfo.notice || ''}${
                         rewardInfo.name || ''
                     }`)
 				} else {
 					try {
 						const ri = await getRewardTask(access_token, signInCount)
 						sendMessage.push(
-							`今天任务奖励领取成功: ${ri.notice || ''}${
+							`任务奖励: ${ri.notice || ''}${
                         ri.name || ''
                     }`)
 					} catch (e) {
-						sendMessage.push(`今天任务奖励领取失败: ${e}`)
+						sendMessage.push(`任务奖励: ${e}`)
 					}
 
 				}
