@@ -99,7 +99,7 @@ function sign_in(access_token, remarks) {
 					try {
 						const ri = await getRewardTask(access_token, signInCount)
 						sendMessage.push(
-							`任务奖励: ${ri.notice || ''}`)
+							`任务奖励: ${ri.notice || ''}${ri.message || ''}`)
 					} catch (e) {
 						sendMessage.push(`任务奖励: ${e}`)
 					}
@@ -145,6 +145,9 @@ async function getRewardTask(access_token, signInCount) {
 		const response = await axios.post(rewardTaskURL, {
 			signInDay: signInCount
 		}, {
+            validateStatus: function (status) {
+                return status === 200 || status === 400;
+            },
 			headers: {
 				authorization: access_token,
 				'Content-Type': 'application/json'
@@ -153,15 +156,14 @@ async function getRewardTask(access_token, signInCount) {
 		const json = response.data;
 		if (!json.success) {
 			if (json.code === 'RepeatExchange') {
-				console.log('奖励已领取过');
-				return Promise.resolve(json); // 可以选择直接返回或做其他处理
+				return Promise.resolve(json); 
 			} else {
 				return Promise.reject(json.message);
 			}
 		}
 		return json.result;
 	} catch (error) {
-		return Promise.reject("奖励已领取过");
+		return Promise.reject("奖励领取异常");
 	}
 }
 
