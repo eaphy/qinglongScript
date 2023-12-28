@@ -1,7 +1,8 @@
-# https://platform.caiyunapp.com/application/manage 彩云天气后台管理
-# cron: 0 8,12,16,18 * * *
-# const $ = new Env("彩云天气");
-#
+"""
+https://platform.caiyunapp.com/application/manage 彩云天气后台管理
+cron: 0 8,12,16,18 * * *
+const $ = new Env("彩云天气");
+"""
 
 import requests
 import json
