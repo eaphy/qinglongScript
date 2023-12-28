@@ -77,10 +77,10 @@ function sign_in(access_token, remarks) {
 		.then(d => d.data)
 		.then(async json => {
 			if (!json.success) {
-				sendMessage.push('签到失败', json.message)
+				sendMessage.push('签到失败 😹', json.message)
 				return Promise.reject(sendMessage.join(', '))
 			}
-			sendMessage.push('签到成功')
+			sendMessage.push('签到成功 🎉')
 			const {
 				signInInfos,
 				signInCount
@@ -115,7 +115,7 @@ function sign_in(access_token, remarks) {
 			return sendMessage.join('\n ')
 		})
 		.catch(e => {
-			sendMessage.push('签到失败')
+			sendMessage.push('签到失败 😹')
 			sendMessage.push(e.message)
 			return Promise.reject(sendMessage.join(', '))
 		})
