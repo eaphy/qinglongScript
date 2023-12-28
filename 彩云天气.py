@@ -1,5 +1,7 @@
 """
 https://platform.caiyunapp.com/application/manage 彩云天气后台管理
+需添加环境变量 cytqToken
+
 cron: 0 8,12,16,18 * * *
 const $ = new Env("彩云天气");
 """
@@ -7,9 +9,13 @@ const $ = new Env("彩云天气");
 import requests
 import json
 import notify
+import os
 
-def get_weather_info(key, lon, lat, location_name):
-    api_url = f"https://api.caiyunapp.com/v2.6/{key}/{lon},{lat}/weather?alert=true&realtime&minutely"
+# 设置全局变量
+api_key = os.environ.get("cytqToken")
+
+def get_weather_info(lon, lat, location_name):
+    api_url = f"https://api.caiyunapp.com/v2.6/{api_key}/{lon},{lat}/weather?alert=true&realtime&minutely"
     response = requests.get(api_url)
     data = json.loads(response.text)
     weather = data['result']
@@ -42,10 +48,10 @@ def get_weather_info(key, lon, lat, location_name):
 
 # 为多个地区定义相应的信息
 locations = [
-    {"name": "北京顺义", "key": "Xm4m454HkUhPFspx", "lon": "116.547244", "lat": "40.106011"},
-    {"name": "河南安阳", "key": "Xm4m454HkUhPFspx", "lon": "114.031890", "lat": "36.183402"}
+    {"name": "北京顺义", "lon": "116.547244", "lat": "40.106011"},
+    {"name": "河南安阳", "lon": "114.031890", "lat": "36.183402"}
 ]
 
 # 遍历地区信息并获取天气
 for location in locations:
-    get_weather_info(location["key"], location["lon"], location["lat"], location["name"])
+    get_weather_info(location["lon"], location["lat"], location["name"])
