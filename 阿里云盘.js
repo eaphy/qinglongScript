@@ -257,5 +257,5 @@ async function getRefreshToken() {
 			}
 			index++
 		}
-		//   await notify.sendNotify(`阿里云盘签到`, message.join('\n'))
+		await notify.sendNotify(`阿里云盘签到`, message.join('\n'))
 	})()
