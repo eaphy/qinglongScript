@@ -14,7 +14,7 @@ const data = {
   "messages": [
     {
       "role": "user",
-      "content": "用java实现限流算法"
+      "content": "介绍下自己"
     }
   ],
   "stream": true
