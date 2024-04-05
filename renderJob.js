@@ -1,6 +1,7 @@
 /*
- * cron: */5 * * * *
- */
+cron:  0/5 * * * *
+*/
+
 
 const axios = require('axios');
 
