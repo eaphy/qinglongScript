@@ -1,3 +1,7 @@
+/*
+ * cron: */5 * * * *
+ */
+
 const axios = require('axios');
 
 const headers = {
