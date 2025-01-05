@@ -23,6 +23,7 @@ const $ = new Env("serv00");
 import paramiko
 import os
 import json
+import notify
 
 
 # 从环境变量加载SSH账号信息
@@ -58,6 +59,12 @@ def ssh_login(hostname, port, username, password, command):
         
     except Exception as e:
         print(f"连接到 {hostname} {username} 失败: {e}")
+        msg = f"""
+登录失败  😹
+账号：{username}
+连接：{hostname}
+"""
+        notify.send("serv00", msg)
 
 if __name__ == "__main__":
     # 加载SSH账号信息
@@ -70,4 +77,10 @@ if __name__ == "__main__":
     for account in ssh_accounts:
         print(f"正在连接 {account['hostname']}...")
         ssh_login(account["hostname"], account["port"], account["username"], account["password"], command)
+        msg = f"""
+登录成功  🎉
+账号：{account["username"]}
+连接：{account["hostname"]}
+"""
+        notify.send("serv00", msg)
         print("-" * 40)  # 分隔线
