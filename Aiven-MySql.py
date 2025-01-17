@@ -48,7 +48,7 @@ try:
         msg = f"""
 MySQL 登录成功  🎉
 """
-        notify.send("aiven-mysql", msg)
+        notify.send("Aiven-Mysql", msg)
 
         # 创建游标对象
         cursor = conn.cursor()
@@ -72,7 +72,7 @@ except mysql.connector.Error as err:
     msg = f"""
 MySQL登录失败  😹
 """
-    notify.send("aiven-mysql", msg)
+    notify.send("Aiven-Mysql", msg)
 
 finally:
     # 关闭游标和连接
