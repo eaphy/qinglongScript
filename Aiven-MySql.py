@@ -8,7 +8,9 @@
     "DB_PASSWORD": "",
     "DB_HOST": "",
     "DB_PORT": 3306,
-    "DB_NAME": ""
+    "DB_NAME": "",
+    "LOGIN_USER": "",
+    "LOGIN_PASSWORD": ""
 }
 
 cron: 0 15 * * *
@@ -19,6 +21,7 @@ import mysql.connector
 import os
 import json
 import notify
+import requests
 
 
 # 从环境变量加载SSH账号信息
@@ -31,6 +34,36 @@ def load_mysql_accounts():
 
 # 加载配置文件
 config = load_mysql_accounts()
+
+# 登录
+def aiven_console_login():
+    url = "https://console.aiven.io/v1/userauth"
+    headers = {
+        "Content-Type": "application/json"
+    }
+    payload = {
+        "email": config['LOGIN_USER'],
+        "password": config['LOGIN_PASSWORD'],
+        "tenant": "aiven"
+    }
+    
+    try:
+        response = requests.post(url, headers=headers, json=payload)
+        response.raise_for_status()  # 如果响应状态码不是200，抛出异常
+        print("Aiven 控制台登录成功")
+        return response.json()  # 返回响应的JSON数据
+    except requests.exceptions.RequestException as err:
+        print(f"Aiven 控制台登录失败: {err}")
+        return None
+
+login_response = aiven_console_login()
+if login_response:
+    print("登录响应:", login_response)
+    msg = f"""
+MySQL 登录成功  🎉
+"""
+    notify.send("Aiven-Mysql", msg)
+
 
 try:
     # 连接到 MySQL 数据库
@@ -46,7 +79,7 @@ try:
     if conn.is_connected():
         print('成功连接到 MySQL 数据库')
         msg = f"""
-MySQL 登录成功  🎉
+MySQL 连接数据库成功  🎉
 """
         notify.send("Aiven-Mysql", msg)
 
