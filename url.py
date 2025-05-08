@@ -6,7 +6,7 @@
     "host2.example.com"
 ]
 
-cron: 0 15 15 * *
+cron: 0 15 * * *
 const $ = new Env("URL");
 """
 
